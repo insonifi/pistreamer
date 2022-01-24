@@ -1,5 +1,6 @@
 [Unit]
 Description=Streaming service
+After=dhcpcd.service
 
 [Service]
 Type=simple
