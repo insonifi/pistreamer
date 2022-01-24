@@ -10,5 +10,5 @@ Pi Zero W  with a HDMI to CSI bridge that streams input to Twitch
 # Install
 
 ```
-sh install.sh
+bash install.sh
 ```
