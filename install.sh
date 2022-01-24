@@ -12,9 +12,9 @@ PATH_INIT=/usr/bin/init-hdmi.sh
 PATH_STREAM=/usr/bin/stream.py
 PATH_SERVICE=/etc/systemd/system/streamer.service
 
-ln -fs 720p60.bin $PATH_EDID
-ln -fs init-hdmi.sh $PATH_INIT
-ln -fs stream.py $PATH_STREAM
+cp -f 720p60.bin $PATH_EDID
+cp -f init-hdmi.sh $PATH_INIT
+cp -f stream.py $PATH_STREAM
 cp -f streamer.service $PATH_SERVICE
 
 if [[ `sed -n /$TKEY_HOLDER/p $PATH_SERVICE` != '' ]]
