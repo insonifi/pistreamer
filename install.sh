@@ -20,12 +20,13 @@ cp -f stream.py $PATH_STREAM
 cp -f streamer.service $PATH_SERVICE
 cp -f wifi-powersave-off.service $PATH_WIFI_SVC
 
-if [[ $TKEY == $TKEY_HOLDER ]]
+if [[ $TKEY == '' ]]
 then
 	echo -n Enter a Twitch key: 
 	read TKEY
-	sed -e s/$TKEY_HOLDER/$TKEY/ -i $PATH_SERVICE
 fi
+
+sed -e s/$TKEY_HOLDER/$TKEY/ -i $PATH_SERVICE
 
 systemctl daemon-reload
 systemctl enable streamer.service
