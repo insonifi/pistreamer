@@ -4,7 +4,6 @@ After=dhcpcd.service
 
 [Service]
 Type=simple
-Environment=TWITCH_KEY=__TKEY__
 ExecStartPre=/usr/bin/sh /usr/bin/init-hdmi.sh
 ExecStart=/usr/bin/python3 /usr/bin/stream.py
 
