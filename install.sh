@@ -15,6 +15,8 @@ PATH_BT_SVC=/lib/systemd/system/bluetooth.service
 PATH_RFCOMM_SVC=/etc/systemd/system/rfcomm.service
 PATH_WIFI_SVC=/etc/systemd/system/wifi-powersave-off.service
 
+apt install -y gstreamer1.0-tools gstreamer1.0-plugins-{good,bad,ugly}
+
 cp -f stream.cfg $PATH_CONF
 cp -f 720p60.bin $PATH_EDID
 cp -f init-hdmi.sh $PATH_INIT
