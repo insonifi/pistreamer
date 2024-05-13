@@ -112,7 +112,9 @@ def main(args):
     pipe.set_state(Gst.State.PLAYING)
     try:
       loop.run()
+      print('Streaming…')
     except:
+      print('Failed to start')
       pass
     
     # cleanup
