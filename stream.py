@@ -5,7 +5,9 @@ Simple example to demonstrate dynamically adding and removing source elements
 to a playing pipeline.
 '''
 
+import argparse
 from configparser import ConfigParser
+import os
 import random
 import requests
 import sys
@@ -17,11 +19,15 @@ gi.require_version('GLib', '2.0')
 gi.require_version('GObject', '2.0')
 from gi.repository import GLib, GObject, Gst
 
+argpar = argparse.ArgumentParser(description='Grab, encode and stream video from connected camera')
+argpar.add_argument('--conf', dest='CONF_PATH', help='Path to the configuration file with a key', required=True)
+args = argpar.parse_args()
+
 API_INGEST = "https://ingest.twitch.tv/ingests"
 ingests = None
 current_ingest = 0
 config = ConfigParser()
-config.read("stream.cfg")
+config.read(args.CONF_PATH)
 
 def bus_call(bus, message, loop):
     t = message.type
