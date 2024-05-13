@@ -64,25 +64,27 @@ def main(args):
     caps_stream = Gst.Caps.from_string('video/x-h264,level=(string)4')
 
     pipe = Gst.Pipeline.new('pipeline')
-    # video = Gst.ElementFactory.make('v4l2src')
-    video = Gst.ElementFactory.make('videotestsrc')
+    video = Gst.ElementFactory.make('v4l2src')
     videofilter = Gst.ElementFactory.make('capsfilter')
-    # encoder = Gst.ElementFactory.make('v4l2h264enc')
-    encoder = Gst.ElementFactory.make('x264enc')
+    encoder = Gst.ElementFactory.make('v4l2h264enc')
     streamfilter = Gst.ElementFactory.make('capsfilter')
     parse = Gst.ElementFactory.make('h264parse')
+    queue = Gst.ElementFactory.make('queue')
     muxer = Gst.ElementFactory.make('flvmux')
     sink = Gst.ElementFactory.make('rtmpsink')
 
     videofilter.set_property('caps', caps_video)
     streamfilter.set_property('caps', caps_stream)
-    sink.set_property('location', get_url())
+    parse.set_property('config-interval', -1)
+    muxer.set_property('streamable', True)
+    sink.set_property('location', url)
 
     pipe.add(video)
     pipe.add(videofilter)
     pipe.add(encoder)
     pipe.add(streamfilter)
     pipe.add(parse)
+    pipe.add(queue)
     pipe.add(muxer)
     pipe.add(sink)
 
@@ -91,7 +93,8 @@ def main(args):
     encoder.link(streamfilter)
     streamfilter.link(parse)
     parse.link(muxer)
-    muxer.link(sink)
+    muxer.link(queue)
+    queue.link(sink)
 
     loop = GLib.MainLoop()
 
